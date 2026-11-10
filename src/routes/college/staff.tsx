@@ -1,0 +1,7 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { ResourcePage } from "@/components/app/resource-page";
+import { StatusBadge } from "@/components/app/ui-bits";
+import { DEPARTMENTS } from "@/lib/mock-data";
+export const Route = createFileRoute("/college/staff")({ head: () => ({ meta: [{ title: "Staff — CampusOS" }] }), component: () => (
+  <ResourcePage title="Staff" description="Non-teaching employees and their accounts." collection="employees" module="Staff" searchKeys={["full_name","employee_id"]} perms={{view:"staff.view",create:"staff.create",edit:"staff.edit",delete:"staff.accounts"}} defaults={{kind:"staff",account:"Invited",roles:[]}} columns={[{key:"employee_id",label:"Employee ID"},{key:"full_name",label:"Name"},{key:"department",label:"Department",hideOnMobile:true},{key:"designation",label:"Designation"},{key:"status",label:"Status",render:(r:any)=><StatusBadge status={r.status}/>},{key:"account",label:"Account",render:(r:any)=><StatusBadge status={r.account}/>}]} fields={[{name:"employee_id",label:"Employee ID",required:true},{name:"full_name",label:"Full name",required:true},{name:"email",label:"Email",type:"email",required:true},{name:"phone",label:"Phone"},{name:"department",label:"Department",required:true},{name:"designation",label:"Designation",required:true},{name:"joining_date",label:"Joining date",type:"date"},{name:"status",label:"Status",type:"select",options:["Active","On leave","Inactive"]}]} />) });
+void StatusBadge; void DEPARTMENTS;

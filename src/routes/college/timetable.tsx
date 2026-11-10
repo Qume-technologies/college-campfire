@@ -1,0 +1,7 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { ResourcePage } from "@/components/app/resource-page";
+import { StatusBadge } from "@/components/app/ui-bits";
+import { DEPARTMENTS } from "@/lib/mock-data";
+export const Route = createFileRoute("/college/timetable")({ head: () => ({ meta: [{ title: "Timetable — CampusOS" }] }), component: () => (
+  <ResourcePage title="Timetable" description="Weekly schedule (1=Sun … 7=Sat)." collection="timetable" module="Timetable" searchKeys={["subject_name","teacher_name","room_number"]} perms={{view:"timetable.view",create:"timetable.create",edit:"timetable.edit",delete:"timetable.delete"}} filters={[{key:"department",label:"Departments",options:DEPARTMENTS}]} columns={[{key:"day_of_week",label:"Day",render:(r:any)=>["","Sun","Mon","Tue","Wed","Thu","Fri","Sat"][r.day_of_week]},{key:"time_start",label:"Start"},{key:"time_end",label:"End"},{key:"subject_name",label:"Subject"},{key:"teacher_name",label:"Teacher",hideOnMobile:true},{key:"room_number",label:"Room"}]} fields={[{name:"department",label:"Department",type:"select",options:DEPARTMENTS,required:true},{name:"admission_year",label:"Batch",type:"number"},{name:"day_of_week",label:"Day (1-7)",type:"number",min:1,max:7},{name:"room_number",label:"Room"},{name:"time_start",label:"Start",required:true,placeholder:"08:00 AM"},{name:"time_end",label:"End",required:true},{name:"subject_name",label:"Subject",required:true},{name:"teacher_name",label:"Teacher",required:true}]} />) });
+void StatusBadge; void DEPARTMENTS;
