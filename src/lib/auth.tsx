@@ -32,6 +32,19 @@ export function signIn(email: string, password: string): { ok: true; session: Se
 }
 export const signOut = () => set(null);
 
+export function previewSession(kind: Session["kind"]): Session {
+  const account = DEMO_ACCOUNTS.find((a) => a.kind === kind)!;
+  const { password: _password, ...preview } = account;
+  return preview;
+}
+
+export function enterPreview(kind: Session["kind"]) {
+  const preview = previewSession(kind);
+  set(preview);
+  audit("Opened preview workspace", "Auth", preview.email);
+  return preview;
+}
+
 export function useSession() {
   return useSyncExternalStore((l) => { ls.add(l); return () => ls.delete(l); }, () => session, () => null);
 }
@@ -43,4 +56,5 @@ export function usePermissions(): Set<string> {
   if (s.kind === "super_admin") return new Set(ALL_PERMISSIONS);
   return new Set(roles.filter((r) => r.college_id === s.college_id && s.role_names.includes(r.name)).flatMap((r) => r.permissions));
 }
-export function useCan() { const p = usePermissions(); return (k?: string) => !k || p.has(k); }
+// The frontend preview intentionally exposes every module without permission gates.
+export function useCan() { return (_key?: string) => true; }

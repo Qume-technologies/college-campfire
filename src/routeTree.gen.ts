@@ -11,25 +11,36 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CollegeRouteRouteImport } from './routes/college/route'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as RegisterCollegeRouteImport } from './routes/register-college'
 import { Route as SuperAdminRouteRouteImport } from './routes/super-admin/route'
+import { Route as VerifyCollegeRouteImport } from './routes/verify-college'
+import { Route as CollegeIndexRouteImport } from './routes/college/index'
 import { Route as CollegeAssignmentsRouteImport } from './routes/college/assignments'
 import { Route as CollegeAttendanceRouteImport } from './routes/college/attendance'
 import { Route as CollegeAuditLogsRouteImport } from './routes/college/audit-logs'
+import { Route as CollegeDashboardRouteImport } from './routes/college/dashboard'
 import { Route as CollegeDepartmentsRouteImport } from './routes/college/departments'
 import { Route as CollegeExamsRouteImport } from './routes/college/exams'
 import { Route as CollegeFeesRouteImport } from './routes/college/fees'
 import { Route as CollegeLeaveManagementRouteImport } from './routes/college/leave-management'
 import { Route as CollegeNoticesRouteImport } from './routes/college/notices'
 import { Route as CollegeNotificationsRouteImport } from './routes/college/notifications'
+import { Route as CollegePermissionsRouteImport } from './routes/college/permissions'
 import { Route as CollegeResultsRouteImport } from './routes/college/results'
 import { Route as CollegeRolesRouteImport } from './routes/college/roles'
+import { Route as CollegeSettingsRouteImport } from './routes/college/settings'
 import { Route as CollegeStaffRouteImport } from './routes/college/staff'
 import { Route as CollegeStudentsRouteImport } from './routes/college/students'
 import { Route as CollegeTeachersRouteImport } from './routes/college/teachers'
 import { Route as CollegeTimetableRouteImport } from './routes/college/timetable'
+import { Route as SuperAdminIndexRouteImport } from './routes/super-admin/index'
 import { Route as SuperAdminAuditLogsRouteImport } from './routes/super-admin/audit-logs'
 import { Route as SuperAdminCollegesRouteImport } from './routes/super-admin/colleges'
+import { Route as SuperAdminDashboardRouteImport } from './routes/super-admin/dashboard'
 import { Route as SuperAdminRolesRouteImport } from './routes/super-admin/roles'
+import { Route as SuperAdminSettingsRouteImport } from './routes/super-admin/settings'
 import { Route as SuperAdminSubscriptionsRouteImport } from './routes/super-admin/subscriptions'
 import { Route as SuperAdminUsersRouteImport } from './routes/super-admin/users'
 
@@ -43,10 +54,35 @@ const CollegeRouteRoute = CollegeRouteRouteImport.update({
   path: '/college',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterCollegeRoute = RegisterCollegeRouteImport.update({
+  id: '/register-college',
+  path: '/register-college',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SuperAdminRouteRoute = SuperAdminRouteRouteImport.update({
   id: '/super-admin',
   path: '/super-admin',
   getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyCollegeRoute = VerifyCollegeRouteImport.update({
+  id: '/verify-college',
+  path: '/verify-college',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollegeIndexRoute = CollegeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CollegeRouteRoute,
 } as any)
 const CollegeAssignmentsRoute = CollegeAssignmentsRouteImport.update({
   id: '/assignments',
@@ -61,6 +97,11 @@ const CollegeAttendanceRoute = CollegeAttendanceRouteImport.update({
 const CollegeAuditLogsRoute = CollegeAuditLogsRouteImport.update({
   id: '/audit-logs',
   path: '/audit-logs',
+  getParentRoute: () => CollegeRouteRoute,
+} as any)
+const CollegeDashboardRoute = CollegeDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => CollegeRouteRoute,
 } as any)
 const CollegeDepartmentsRoute = CollegeDepartmentsRouteImport.update({
@@ -93,6 +134,11 @@ const CollegeNotificationsRoute = CollegeNotificationsRouteImport.update({
   path: '/notifications',
   getParentRoute: () => CollegeRouteRoute,
 } as any)
+const CollegePermissionsRoute = CollegePermissionsRouteImport.update({
+  id: '/permissions',
+  path: '/permissions',
+  getParentRoute: () => CollegeRouteRoute,
+} as any)
 const CollegeResultsRoute = CollegeResultsRouteImport.update({
   id: '/results',
   path: '/results',
@@ -101,6 +147,11 @@ const CollegeResultsRoute = CollegeResultsRouteImport.update({
 const CollegeRolesRoute = CollegeRolesRouteImport.update({
   id: '/roles',
   path: '/roles',
+  getParentRoute: () => CollegeRouteRoute,
+} as any)
+const CollegeSettingsRoute = CollegeSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => CollegeRouteRoute,
 } as any)
 const CollegeStaffRoute = CollegeStaffRouteImport.update({
@@ -123,6 +174,11 @@ const CollegeTimetableRoute = CollegeTimetableRouteImport.update({
   path: '/timetable',
   getParentRoute: () => CollegeRouteRoute,
 } as any)
+const SuperAdminIndexRoute = SuperAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SuperAdminRouteRoute,
+} as any)
 const SuperAdminAuditLogsRoute = SuperAdminAuditLogsRouteImport.update({
   id: '/audit-logs',
   path: '/audit-logs',
@@ -133,9 +189,19 @@ const SuperAdminCollegesRoute = SuperAdminCollegesRouteImport.update({
   path: '/colleges',
   getParentRoute: () => SuperAdminRouteRoute,
 } as any)
+const SuperAdminDashboardRoute = SuperAdminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => SuperAdminRouteRoute,
+} as any)
 const SuperAdminRolesRoute = SuperAdminRolesRouteImport.update({
   id: '/roles',
   path: '/roles',
+  getParentRoute: () => SuperAdminRouteRoute,
+} as any)
+const SuperAdminSettingsRoute = SuperAdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => SuperAdminRouteRoute,
 } as any)
 const SuperAdminSubscriptionsRoute = SuperAdminSubscriptionsRouteImport.update({
@@ -153,77 +219,108 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/college': typeof CollegeRouteRouteWithChildren
   '/super-admin': typeof SuperAdminRouteRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/register-college': typeof RegisterCollegeRoute
+  '/verify-college': typeof VerifyCollegeRoute
   '/college/assignments': typeof CollegeAssignmentsRoute
   '/college/attendance': typeof CollegeAttendanceRoute
   '/college/audit-logs': typeof CollegeAuditLogsRoute
+  '/college/dashboard': typeof CollegeDashboardRoute
   '/college/departments': typeof CollegeDepartmentsRoute
   '/college/exams': typeof CollegeExamsRoute
   '/college/fees': typeof CollegeFeesRoute
   '/college/leave-management': typeof CollegeLeaveManagementRoute
   '/college/notices': typeof CollegeNoticesRoute
   '/college/notifications': typeof CollegeNotificationsRoute
+  '/college/permissions': typeof CollegePermissionsRoute
   '/college/results': typeof CollegeResultsRoute
   '/college/roles': typeof CollegeRolesRoute
+  '/college/settings': typeof CollegeSettingsRoute
   '/college/staff': typeof CollegeStaffRoute
   '/college/students': typeof CollegeStudentsRoute
   '/college/teachers': typeof CollegeTeachersRoute
   '/college/timetable': typeof CollegeTimetableRoute
   '/super-admin/audit-logs': typeof SuperAdminAuditLogsRoute
   '/super-admin/colleges': typeof SuperAdminCollegesRoute
+  '/super-admin/dashboard': typeof SuperAdminDashboardRoute
   '/super-admin/roles': typeof SuperAdminRolesRoute
+  '/super-admin/settings': typeof SuperAdminSettingsRoute
   '/super-admin/subscriptions': typeof SuperAdminSubscriptionsRoute
   '/super-admin/users': typeof SuperAdminUsersRoute
+  '/college/': typeof CollegeIndexRoute
+  '/super-admin/': typeof SuperAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/college': typeof CollegeRouteRouteWithChildren
-  '/super-admin': typeof SuperAdminRouteRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/register-college': typeof RegisterCollegeRoute
+  '/verify-college': typeof VerifyCollegeRoute
   '/college/assignments': typeof CollegeAssignmentsRoute
   '/college/attendance': typeof CollegeAttendanceRoute
   '/college/audit-logs': typeof CollegeAuditLogsRoute
+  '/college/dashboard': typeof CollegeDashboardRoute
   '/college/departments': typeof CollegeDepartmentsRoute
   '/college/exams': typeof CollegeExamsRoute
   '/college/fees': typeof CollegeFeesRoute
   '/college/leave-management': typeof CollegeLeaveManagementRoute
   '/college/notices': typeof CollegeNoticesRoute
   '/college/notifications': typeof CollegeNotificationsRoute
+  '/college/permissions': typeof CollegePermissionsRoute
   '/college/results': typeof CollegeResultsRoute
   '/college/roles': typeof CollegeRolesRoute
+  '/college/settings': typeof CollegeSettingsRoute
   '/college/staff': typeof CollegeStaffRoute
   '/college/students': typeof CollegeStudentsRoute
   '/college/teachers': typeof CollegeTeachersRoute
   '/college/timetable': typeof CollegeTimetableRoute
   '/super-admin/audit-logs': typeof SuperAdminAuditLogsRoute
   '/super-admin/colleges': typeof SuperAdminCollegesRoute
+  '/super-admin/dashboard': typeof SuperAdminDashboardRoute
   '/super-admin/roles': typeof SuperAdminRolesRoute
+  '/super-admin/settings': typeof SuperAdminSettingsRoute
   '/super-admin/subscriptions': typeof SuperAdminSubscriptionsRoute
   '/super-admin/users': typeof SuperAdminUsersRoute
+  '/college': typeof CollegeIndexRoute
+  '/super-admin': typeof SuperAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/college': typeof CollegeRouteRouteWithChildren
   '/super-admin': typeof SuperAdminRouteRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/login': typeof LoginRoute
+  '/register-college': typeof RegisterCollegeRoute
+  '/verify-college': typeof VerifyCollegeRoute
   '/college/assignments': typeof CollegeAssignmentsRoute
   '/college/attendance': typeof CollegeAttendanceRoute
   '/college/audit-logs': typeof CollegeAuditLogsRoute
+  '/college/dashboard': typeof CollegeDashboardRoute
   '/college/departments': typeof CollegeDepartmentsRoute
   '/college/exams': typeof CollegeExamsRoute
   '/college/fees': typeof CollegeFeesRoute
   '/college/leave-management': typeof CollegeLeaveManagementRoute
   '/college/notices': typeof CollegeNoticesRoute
   '/college/notifications': typeof CollegeNotificationsRoute
+  '/college/permissions': typeof CollegePermissionsRoute
   '/college/results': typeof CollegeResultsRoute
   '/college/roles': typeof CollegeRolesRoute
+  '/college/settings': typeof CollegeSettingsRoute
   '/college/staff': typeof CollegeStaffRoute
   '/college/students': typeof CollegeStudentsRoute
   '/college/teachers': typeof CollegeTeachersRoute
   '/college/timetable': typeof CollegeTimetableRoute
   '/super-admin/audit-logs': typeof SuperAdminAuditLogsRoute
   '/super-admin/colleges': typeof SuperAdminCollegesRoute
+  '/super-admin/dashboard': typeof SuperAdminDashboardRoute
   '/super-admin/roles': typeof SuperAdminRolesRoute
+  '/super-admin/settings': typeof SuperAdminSettingsRoute
   '/super-admin/subscriptions': typeof SuperAdminSubscriptionsRoute
   '/super-admin/users': typeof SuperAdminUsersRoute
+  '/college/': typeof CollegeIndexRoute
+  '/super-admin/': typeof SuperAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -231,82 +328,117 @@ export interface FileRouteTypes {
     | '/'
     | '/college'
     | '/super-admin'
+    | '/forgot-password'
+    | '/login'
+    | '/register-college'
+    | '/verify-college'
     | '/college/assignments'
     | '/college/attendance'
     | '/college/audit-logs'
+    | '/college/dashboard'
     | '/college/departments'
     | '/college/exams'
     | '/college/fees'
     | '/college/leave-management'
     | '/college/notices'
     | '/college/notifications'
+    | '/college/permissions'
     | '/college/results'
     | '/college/roles'
+    | '/college/settings'
     | '/college/staff'
     | '/college/students'
     | '/college/teachers'
     | '/college/timetable'
     | '/super-admin/audit-logs'
     | '/super-admin/colleges'
+    | '/super-admin/dashboard'
     | '/super-admin/roles'
+    | '/super-admin/settings'
     | '/super-admin/subscriptions'
     | '/super-admin/users'
+    | '/college/'
+    | '/super-admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/college'
-    | '/super-admin'
+    | '/forgot-password'
+    | '/login'
+    | '/register-college'
+    | '/verify-college'
     | '/college/assignments'
     | '/college/attendance'
     | '/college/audit-logs'
+    | '/college/dashboard'
     | '/college/departments'
     | '/college/exams'
     | '/college/fees'
     | '/college/leave-management'
     | '/college/notices'
     | '/college/notifications'
+    | '/college/permissions'
     | '/college/results'
     | '/college/roles'
+    | '/college/settings'
     | '/college/staff'
     | '/college/students'
     | '/college/teachers'
     | '/college/timetable'
     | '/super-admin/audit-logs'
     | '/super-admin/colleges'
+    | '/super-admin/dashboard'
     | '/super-admin/roles'
+    | '/super-admin/settings'
     | '/super-admin/subscriptions'
     | '/super-admin/users'
+    | '/college'
+    | '/super-admin'
   id:
     | '__root__'
     | '/'
     | '/college'
     | '/super-admin'
+    | '/forgot-password'
+    | '/login'
+    | '/register-college'
+    | '/verify-college'
     | '/college/assignments'
     | '/college/attendance'
     | '/college/audit-logs'
+    | '/college/dashboard'
     | '/college/departments'
     | '/college/exams'
     | '/college/fees'
     | '/college/leave-management'
     | '/college/notices'
     | '/college/notifications'
+    | '/college/permissions'
     | '/college/results'
     | '/college/roles'
+    | '/college/settings'
     | '/college/staff'
     | '/college/students'
     | '/college/teachers'
     | '/college/timetable'
     | '/super-admin/audit-logs'
     | '/super-admin/colleges'
+    | '/super-admin/dashboard'
     | '/super-admin/roles'
+    | '/super-admin/settings'
     | '/super-admin/subscriptions'
     | '/super-admin/users'
+    | '/college/'
+    | '/super-admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CollegeRouteRoute: typeof CollegeRouteRouteWithChildren
   SuperAdminRouteRoute: typeof SuperAdminRouteRouteWithChildren
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  LoginRoute: typeof LoginRoute
+  RegisterCollegeRoute: typeof RegisterCollegeRoute
+  VerifyCollegeRoute: typeof VerifyCollegeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -325,12 +457,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollegeRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register-college': {
+      id: '/register-college'
+      path: '/register-college'
+      fullPath: '/register-college'
+      preLoaderRoute: typeof RegisterCollegeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/super-admin': {
       id: '/super-admin'
       path: '/super-admin'
       fullPath: '/super-admin'
       preLoaderRoute: typeof SuperAdminRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/verify-college': {
+      id: '/verify-college'
+      path: '/verify-college'
+      fullPath: '/verify-college'
+      preLoaderRoute: typeof VerifyCollegeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/college/': {
+      id: '/college/'
+      path: '/'
+      fullPath: '/college/'
+      preLoaderRoute: typeof CollegeIndexRouteImport
+      parentRoute: typeof CollegeRouteRoute
     }
     '/college/assignments': {
       id: '/college/assignments'
@@ -351,6 +518,13 @@ declare module '@tanstack/react-router' {
       path: '/audit-logs'
       fullPath: '/college/audit-logs'
       preLoaderRoute: typeof CollegeAuditLogsRouteImport
+      parentRoute: typeof CollegeRouteRoute
+    }
+    '/college/dashboard': {
+      id: '/college/dashboard'
+      path: '/dashboard'
+      fullPath: '/college/dashboard'
+      preLoaderRoute: typeof CollegeDashboardRouteImport
       parentRoute: typeof CollegeRouteRoute
     }
     '/college/departments': {
@@ -395,6 +569,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollegeNotificationsRouteImport
       parentRoute: typeof CollegeRouteRoute
     }
+    '/college/permissions': {
+      id: '/college/permissions'
+      path: '/permissions'
+      fullPath: '/college/permissions'
+      preLoaderRoute: typeof CollegePermissionsRouteImport
+      parentRoute: typeof CollegeRouteRoute
+    }
     '/college/results': {
       id: '/college/results'
       path: '/results'
@@ -407,6 +588,13 @@ declare module '@tanstack/react-router' {
       path: '/roles'
       fullPath: '/college/roles'
       preLoaderRoute: typeof CollegeRolesRouteImport
+      parentRoute: typeof CollegeRouteRoute
+    }
+    '/college/settings': {
+      id: '/college/settings'
+      path: '/settings'
+      fullPath: '/college/settings'
+      preLoaderRoute: typeof CollegeSettingsRouteImport
       parentRoute: typeof CollegeRouteRoute
     }
     '/college/staff': {
@@ -437,6 +625,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollegeTimetableRouteImport
       parentRoute: typeof CollegeRouteRoute
     }
+    '/super-admin/': {
+      id: '/super-admin/'
+      path: '/'
+      fullPath: '/super-admin/'
+      preLoaderRoute: typeof SuperAdminIndexRouteImport
+      parentRoute: typeof SuperAdminRouteRoute
+    }
     '/super-admin/audit-logs': {
       id: '/super-admin/audit-logs'
       path: '/audit-logs'
@@ -451,11 +646,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SuperAdminCollegesRouteImport
       parentRoute: typeof SuperAdminRouteRoute
     }
+    '/super-admin/dashboard': {
+      id: '/super-admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/super-admin/dashboard'
+      preLoaderRoute: typeof SuperAdminDashboardRouteImport
+      parentRoute: typeof SuperAdminRouteRoute
+    }
     '/super-admin/roles': {
       id: '/super-admin/roles'
       path: '/roles'
       fullPath: '/super-admin/roles'
       preLoaderRoute: typeof SuperAdminRolesRouteImport
+      parentRoute: typeof SuperAdminRouteRoute
+    }
+    '/super-admin/settings': {
+      id: '/super-admin/settings'
+      path: '/settings'
+      fullPath: '/super-admin/settings'
+      preLoaderRoute: typeof SuperAdminSettingsRouteImport
       parentRoute: typeof SuperAdminRouteRoute
     }
     '/super-admin/subscriptions': {
@@ -479,36 +688,44 @@ interface CollegeRouteRouteChildren {
   CollegeAssignmentsRoute: typeof CollegeAssignmentsRoute
   CollegeAttendanceRoute: typeof CollegeAttendanceRoute
   CollegeAuditLogsRoute: typeof CollegeAuditLogsRoute
+  CollegeDashboardRoute: typeof CollegeDashboardRoute
   CollegeDepartmentsRoute: typeof CollegeDepartmentsRoute
   CollegeExamsRoute: typeof CollegeExamsRoute
   CollegeFeesRoute: typeof CollegeFeesRoute
   CollegeLeaveManagementRoute: typeof CollegeLeaveManagementRoute
   CollegeNoticesRoute: typeof CollegeNoticesRoute
   CollegeNotificationsRoute: typeof CollegeNotificationsRoute
+  CollegePermissionsRoute: typeof CollegePermissionsRoute
   CollegeResultsRoute: typeof CollegeResultsRoute
   CollegeRolesRoute: typeof CollegeRolesRoute
+  CollegeSettingsRoute: typeof CollegeSettingsRoute
   CollegeStaffRoute: typeof CollegeStaffRoute
   CollegeStudentsRoute: typeof CollegeStudentsRoute
   CollegeTeachersRoute: typeof CollegeTeachersRoute
   CollegeTimetableRoute: typeof CollegeTimetableRoute
+  CollegeIndexRoute: typeof CollegeIndexRoute
 }
 
 const CollegeRouteRouteChildren: CollegeRouteRouteChildren = {
   CollegeAssignmentsRoute: CollegeAssignmentsRoute,
   CollegeAttendanceRoute: CollegeAttendanceRoute,
   CollegeAuditLogsRoute: CollegeAuditLogsRoute,
+  CollegeDashboardRoute: CollegeDashboardRoute,
   CollegeDepartmentsRoute: CollegeDepartmentsRoute,
   CollegeExamsRoute: CollegeExamsRoute,
   CollegeFeesRoute: CollegeFeesRoute,
   CollegeLeaveManagementRoute: CollegeLeaveManagementRoute,
   CollegeNoticesRoute: CollegeNoticesRoute,
   CollegeNotificationsRoute: CollegeNotificationsRoute,
+  CollegePermissionsRoute: CollegePermissionsRoute,
   CollegeResultsRoute: CollegeResultsRoute,
   CollegeRolesRoute: CollegeRolesRoute,
+  CollegeSettingsRoute: CollegeSettingsRoute,
   CollegeStaffRoute: CollegeStaffRoute,
   CollegeStudentsRoute: CollegeStudentsRoute,
   CollegeTeachersRoute: CollegeTeachersRoute,
   CollegeTimetableRoute: CollegeTimetableRoute,
+  CollegeIndexRoute: CollegeIndexRoute,
 }
 
 const CollegeRouteRouteWithChildren = CollegeRouteRoute._addFileChildren(
@@ -518,17 +735,23 @@ const CollegeRouteRouteWithChildren = CollegeRouteRoute._addFileChildren(
 interface SuperAdminRouteRouteChildren {
   SuperAdminAuditLogsRoute: typeof SuperAdminAuditLogsRoute
   SuperAdminCollegesRoute: typeof SuperAdminCollegesRoute
+  SuperAdminDashboardRoute: typeof SuperAdminDashboardRoute
   SuperAdminRolesRoute: typeof SuperAdminRolesRoute
+  SuperAdminSettingsRoute: typeof SuperAdminSettingsRoute
   SuperAdminSubscriptionsRoute: typeof SuperAdminSubscriptionsRoute
   SuperAdminUsersRoute: typeof SuperAdminUsersRoute
+  SuperAdminIndexRoute: typeof SuperAdminIndexRoute
 }
 
 const SuperAdminRouteRouteChildren: SuperAdminRouteRouteChildren = {
   SuperAdminAuditLogsRoute: SuperAdminAuditLogsRoute,
   SuperAdminCollegesRoute: SuperAdminCollegesRoute,
+  SuperAdminDashboardRoute: SuperAdminDashboardRoute,
   SuperAdminRolesRoute: SuperAdminRolesRoute,
+  SuperAdminSettingsRoute: SuperAdminSettingsRoute,
   SuperAdminSubscriptionsRoute: SuperAdminSubscriptionsRoute,
   SuperAdminUsersRoute: SuperAdminUsersRoute,
+  SuperAdminIndexRoute: SuperAdminIndexRoute,
 }
 
 const SuperAdminRouteRouteWithChildren = SuperAdminRouteRoute._addFileChildren(
@@ -539,6 +762,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CollegeRouteRoute: CollegeRouteRouteWithChildren,
   SuperAdminRouteRoute: SuperAdminRouteRouteWithChildren,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  LoginRoute: LoginRoute,
+  RegisterCollegeRoute: RegisterCollegeRoute,
+  VerifyCollegeRoute: VerifyCollegeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -30,7 +30,7 @@ type Props<T> = {
   columns: Column<T>[]; fields?: Field[]; filters?: { key: string; label: string; options: string[] }[];
   searchKeys: string[]; perms?: { view?: string; create?: string; edit?: string; delete?: string; export?: string; import?: string };
   rowActions?: RowAction<T>[]; defaults?: Record<string, any>; headerExtra?: ReactNode; above?: ReactNode; pageSize?: number;
-  transform?: (v: Record<string, any>) => Record<string, any>; rows?: T[];
+  transform?: (v: Record<string, any>) => Record<string, any>; rows?: T[]; filterRows?: (row: T) => boolean;
 };
 
 export function buildSchema(fields: Field[]) {
@@ -77,9 +77,9 @@ export function RecordForm({ fields, defaults, onSubmit, onCancel, submitLabel }
 
 export function ResourcePage<T extends { id: string } & Record<string, any>>(p: Props<T>) {
   const session = useSession(); const can = useCan();
-  const collegeId = p.scoped === false ? null : session?.college_id;
+  const collegeId = p.scoped === false ? null : session?.college_id ?? "col-bwic";
   const source = useCollection<T>(p.collection, collegeId);
-  const all = p.rows ?? source;
+  const all = p.filterRows ? (p.rows ?? source).filter(p.filterRows) : p.rows ?? source;
   const [q, setQ] = useState(""); const [flt, setFlt] = useState<Record<string, string>>({});
   const [sort, setSort] = useState<{ key: string; dir: 1 | -1 } | null>(null);
   const [page, setPage] = useState(0); const [sel, setSel] = useState<string[]>([]);

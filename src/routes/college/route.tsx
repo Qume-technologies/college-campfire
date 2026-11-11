@@ -1,8 +1,7 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { BookOpen, Building, CalendarCheck, CalendarDays, ClipboardList, FileBarChart, GraduationCap, KeyRound, LayoutDashboard, Megaphone, BellRing, Settings, ShieldCheck, UserCog, Users, Wallet, FileText, ScrollText } from "lucide-react";
 import { AppShell, type NavGroup } from "@/components/app/app-shell";
-import { RequireSession } from "@/components/app/guard";
-import { useSession } from "@/lib/auth";
+import { previewSession, useSession } from "@/lib/auth";
 import { useCollection } from "@/lib/store";
 import type { College } from "@/lib/mock-data";
 
@@ -32,13 +31,13 @@ const groups: NavGroup[] = [
 ];
 
 function CollegeLayout() {
-  const s = useSession();
-  const college = useCollection<College>("colleges").find((c) => c.id === s?.college_id);
+  const s = useSession() ?? previewSession("college");
+  const college = useCollection<College>("colleges").find((c) => c.id === s.college_id);
   return <AppShell groups={groups} subtitle={college?.name} crumbRoot={college?.code ?? "College"}><Outlet /></AppShell>;
 }
 
 export const Route = createFileRoute("/college")({
   ssr: false,
   head: () => ({ meta: [{ title: "College — CampusOS" }, { name: "robots", content: "noindex" }] }),
-  component: () => <RequireSession kind="college"><CollegeLayout /></RequireSession>,
+  component: CollegeLayout,
 });

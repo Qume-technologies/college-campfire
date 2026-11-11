@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { useSession, signOut, useCan } from "@/lib/auth";
+import { useSession, signOut, useCan, previewSession, type Session } from "@/lib/auth";
 import { useCollection } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { Initials } from "./ui-bits";
@@ -24,8 +24,8 @@ export function Brand({ collapsed, dark = true }: { collapsed?: boolean; dark?: 
   );
 }
 
-function SidebarNav({ groups, collapsed, onNavigate, subtitle }: { groups: NavGroup[]; collapsed?: boolean; onNavigate?: () => void; subtitle?: string }) {
-  const { pathname } = useLocation(); const can = useCan(); const session = useSession(); const navigate = useNavigate();
+function SidebarNav({ groups, collapsed, onNavigate, subtitle, account }: { groups: NavGroup[]; collapsed?: boolean; onNavigate?: () => void; subtitle?: string; account: Session }) {
+  const { pathname } = useLocation(); const can = useCan(); const navigate = useNavigate();
   const [closed, setClosed] = useState<string[]>([]);
   return (
     <div className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
@@ -49,8 +49,8 @@ function SidebarNav({ groups, collapsed, onNavigate, subtitle }: { groups: NavGr
       </nav>
       <div className="border-t border-sidebar-border p-2">
         <button onClick={() => { signOut(); navigate({ to: "/login" }); }} className={cn("flex w-full items-center gap-2.5 rounded-md p-2 text-left hover:bg-sidebar-accent", collapsed && "justify-center")}>
-          <Initials name={session?.name ?? "U"} className="bg-sidebar-accent text-sidebar-accent-foreground" />
-          {!collapsed && <span className="min-w-0 flex-1"><span className="block truncate text-[13px] font-medium text-sidebar-accent-foreground">{session?.name}</span><span className="block truncate text-[11px] text-sidebar-muted">{session?.title}</span></span>}
+          <Initials name={account.name} className="bg-sidebar-accent text-sidebar-accent-foreground" />
+          {!collapsed && <span className="min-w-0 flex-1"><span className="block truncate text-[13px] font-medium text-sidebar-accent-foreground">{account.name}</span><span className="block truncate text-[11px] text-sidebar-muted">{account.title}</span></span>}
           {!collapsed && <LogOut className="size-4 text-sidebar-muted" />}
         </button>
       </div>
@@ -61,15 +61,16 @@ function SidebarNav({ groups, collapsed, onNavigate, subtitle }: { groups: NavGr
 export function AppShell({ groups, children, subtitle, crumbRoot, headerExtra }: { groups: NavGroup[]; children: ReactNode; subtitle?: string; crumbRoot: string; headerExtra?: ReactNode }) {
   const [collapsed, setCollapsed] = useState(false); const [mobile, setMobile] = useState(false);
   const { pathname } = useLocation(); const session = useSession(); const navigate = useNavigate(); const can = useCan();
+  const account = session ?? previewSession(crumbRoot === "Platform" ? "super_admin" : "college");
   const all = groups.flatMap((g) => g.items).filter((i) => can(i.perm));
   const current = [...all].sort((a, b) => b.to.length - a.to.length).find((i) => pathname.startsWith(i.to));
   const [q, setQ] = useState("");
-  const notifs = useCollection<any>("audit", session?.college_id ?? undefined).slice(0, 6);
+  const notifs = useCollection<any>("audit", account.college_id ?? undefined).slice(0, 6);
   const results = q ? all.filter((i) => i.label.toLowerCase().includes(q.toLowerCase())) : [];
   return (
     <div className="flex min-h-screen bg-background">
-      <aside className={cn("sticky top-0 hidden h-screen shrink-0 transition-[width] duration-200 lg:block", collapsed ? "w-16" : "w-60")}><SidebarNav groups={groups} collapsed={collapsed} subtitle={subtitle} /></aside>
-      <Sheet open={mobile} onOpenChange={setMobile}><SheetContent side="left" className="w-64 border-0 p-0"><SheetTitle className="sr-only">Navigation</SheetTitle><SidebarNav groups={groups} subtitle={subtitle} onNavigate={() => setMobile(false)} /></SheetContent></Sheet>
+      <aside className={cn("sticky top-0 hidden h-screen shrink-0 transition-[width] duration-200 lg:block", collapsed ? "w-16" : "w-60")}><SidebarNav groups={groups} collapsed={collapsed} subtitle={subtitle} account={account} /></aside>
+      <Sheet open={mobile} onOpenChange={setMobile}><SheetContent side="left" className="w-64 border-0 p-0"><SheetTitle className="sr-only">Navigation</SheetTitle><SidebarNav groups={groups} subtitle={subtitle} account={account} onNavigate={() => setMobile(false)} /></SheetContent></Sheet>
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b bg-background/85 px-4 backdrop-blur md:px-6">
           <Button variant="ghost" size="icon" className="size-8 lg:hidden" onClick={() => setMobile(true)} aria-label="Open menu"><Menu /></Button>
@@ -86,9 +87,9 @@ export function AppShell({ groups, children, subtitle, crumbRoot, headerExtra }:
               <ul className="max-h-80 divide-y overflow-y-auto">{notifs.map((n) => <li key={n.id} className="px-4 py-2.5"><p className="text-sm">{n.action} <span className="text-muted-foreground">· {n.module}</span></p><p className="text-xs text-muted-foreground">{n.user} · {n.created_at}</p></li>)}</ul></PopoverContent></Popover>
           <Popover><PopoverTrigger asChild><Button variant="ghost" size="icon" className="hidden size-8 sm:inline-flex" aria-label="Help"><HelpCircle /></Button></PopoverTrigger>
             <PopoverContent align="end" className="w-72 text-sm"><p className="font-semibold">Need help?</p><p className="mt-1 text-muted-foreground">Email support@campusos.app or use "Jump to…" to find any page quickly.</p></PopoverContent></Popover>
-          <DropdownMenu><DropdownMenuTrigger asChild><button aria-label="Account menu"><Initials name={session?.name ?? "U"} /></button></DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56"><DropdownMenuLabel><p className="text-sm">{session?.name}</p><p className="text-xs font-normal text-muted-foreground">{session?.email}</p></DropdownMenuLabel><DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigate({ to: session?.kind === "super_admin" ? "/super-admin/settings" : "/college/settings" })}><Settings />Settings</DropdownMenuItem>
+          <DropdownMenu><DropdownMenuTrigger asChild><button aria-label="Account menu"><Initials name={account.name} /></button></DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56"><DropdownMenuLabel><p className="text-sm">{account.name}</p><p className="text-xs font-normal text-muted-foreground">{account.email}</p></DropdownMenuLabel><DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => navigate({ to: account.kind === "super_admin" ? "/super-admin/settings" : "/college/settings" })}><Settings />Settings</DropdownMenuItem>
               <DropdownMenuItem onClick={() => { signOut(); navigate({ to: "/login" }); }}><LogOut />Sign out</DropdownMenuItem></DropdownMenuContent></DropdownMenu>
         </header>
         <main className="mx-auto w-full max-w-[1400px] flex-1 p-4 md:p-6 lg:p-8">{children}</main>
